@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+
+</head>
+<body>
+	<div>
+<div id="tester" style="width:600px;height:250px;"></div>
+</div>
+</body>
+	<script>
+	Things = [];
+	x_data = [];
+	temperature_data = [];
+	humidity_data = [];
+	$.getJSON("{{request.url_root}}data/", function(data){ Things = data;
+	for (var i = 0; i < Things.length; i++) {
+		x_data.push(Things[i].date);
+		temperature_data.push(Things[i].temperature);
+		humidity_data.push(Things[i].humidity);
+	};
+});
+	var layout = {
+		margin: { t: 0 },
+		xaxis: {autorange: true},
+  		yaxis: {autorange: true}
+	};
+		
+	$(document).ready(function(){
+		d = [{x: x_data,y: temperature_data },{x: x_data,y: humidity_data }];
+	TESTER = document.getElementById('tester');
+	Plotly.plot( TESTER, d, layout);
+
+	})
+</script>
+</html>
