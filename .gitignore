@@ -1,3 +1,4 @@
-*.json
 *.pyc
-*.dat
+*.help
+*.json
+*.db

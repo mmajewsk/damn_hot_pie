@@ -8,10 +8,10 @@ from optparse import OptionParser
 sensor_args = {	'11': Sensor.DHT11, '22': Sensor.DHT22, '2302': Sensor.AM2302}
 
 def add_parser_options(parser):
-	parser.add_option('-p', action="store_true", default=False, help="print every record to STDOUT")
-	parser.add_option('-t', action="store", type="int", default=15, help="time interval in minutes to request readout from sensor")
-	parser.add_option('--pin', dest="pin", action="store", type="int", default=4, help="data pin connected to sensor")
-	parser.add_option('-s', action="store", type="str", default='11', help="number of DHT sensor in use (supported: 11, 22, 2302)")
+	parser.add_option('-p', action="store_true", default=False, help="print every record to STDOUT [default: %default]")
+	parser.add_option('-t', action="store", type="int", default=15, help="time interval in minutes to request readout from sensor [default: %default]")
+	parser.add_option('--pin', dest="pin", action="store", type="int", default=4, help="data pin connected to sensor [default: %default]")
+	parser.add_option('-s', action="store", type="str", default='11', help="number of DHT sensor in use (supported: 11, 22, 2302) [default: %default]")
 	return parser
 
 

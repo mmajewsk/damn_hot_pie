@@ -4,13 +4,15 @@ import json
 from optparse import OptionParser
 app = Flask(__name__)
 
+query_length_limit = 100
+
 def add_parser_options(parser):
-	parser.add_option('--port', dest="port",action="store", type="int", default=8080, help="port")
-	parser.add_option('--host', dest="host", action="store", type="str", default='0.0.0.0', help="host")
+	parser.add_option('--port', dest="port",action="store", type="int", default=8080, help="port [default: %default]")
+	parser.add_option('--host', dest="host", action="store", type="str", default='0.0.0.0', help="host [default: %default]")
+	parser.add_option('-n',action="store", type="int", default=100, help="max limit of rows aviable by /data/ [default: %default]")
 	return parser
 
 def get_records(count=None):
-	query_length_limit = 96
 	data = None
 	if (count is None) or query_length_limit < count < 0:
 		data = DHTRecord.query.order_by(DHTRecord.id.desc()).limit(query_length_limit)
@@ -43,5 +45,7 @@ def last():
 
 if __name__ == '__main__':
 	parser = OptionParser()
+	parser = add_parser_options(parser)
 	opts, args = parser.parse_args()
+	query_length_limit = opts.n
 	app.run(host=opts.host, port=opts.port)
